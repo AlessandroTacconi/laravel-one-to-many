@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
+    <a href="{{ route('admin.projects.index') }}" class="btn btn-dark btn-sm my-3" role="button">Torna alla Lista <i
+            class="fa-regular fa-hand-point-left"></i></a>
     @if (session('message'))
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
