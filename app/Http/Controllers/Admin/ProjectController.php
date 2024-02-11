@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Category;
 use App\Models\Project;
 
 use Illuminate\Support\Str;
@@ -26,7 +27,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $categories = Category::all();
+        return view('admin.projects.create', compact('categories'));
     }
 
     /**
@@ -41,6 +43,9 @@ class ProjectController extends Controller
         $project->description = $data['description'];
         $project->image = $data['image'];
         $project->year = $data['year'];
+        $project->category_id = $data['category_id'];
+
+
         $project->slug = Str::of($project->title)->slug('-');
 
         $project->save();
@@ -63,7 +68,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $categories = Category::all();
+
+        return view('admin.projects.edit', compact('project', 'categories'));
         
     }
 
@@ -78,6 +85,7 @@ class ProjectController extends Controller
         $project->description = $data['description'];
         $project->image = $data['image'];
         $project->year = $data['year'];
+        $project->category_id = $data['category_id'];
         $project->slug = Str::of($project->title)->slug('-');
 
         $project->update($data);
